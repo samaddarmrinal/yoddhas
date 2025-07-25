@@ -1,0 +1,125 @@
+.micro-page {
+  font-family: "Segoe UI", sans-serif;
+  min-height: 100vh;
+  color: #123;
+}
+
+
+  .heroic {
+    background-image: url('../../public/plant.png');
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+
+    padding: 100px 0;
+    text-align: center;
+    height: 200px;
+    color : black;
+  }
+
+.micro-hero .overlay {
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+}
+
+.micro-hero h1 {
+  font-size: 2.5em;
+}
+
+.lang-select {
+  margin-top: 12px;
+  font-size: 16px;
+  padding: 6px 12px;
+}
+
+.micro-info {
+  padding: 30px 40px;
+  font-size: 1.1em;
+  background: #f9f9f9;
+}
+
+.micro-form-section {
+  padding: 40px;
+}
+
+.micro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.micro-form input,
+.micro-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-row button {
+  padding: 10px 18px;
+  border: none;
+  background: #2867b7;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.eligibility-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.eligibility-box.yes {
+  background: #e7fbe9;
+  color: #18703d;
+}
+
+.eligibility-box.no {
+  background: #ffe7e7;
+  color: #a92727;
+}
+
+.micro-schemes {
+  background: #f4faff;
+  padding: 40px;
+  text-align: center;
+}
+
+.scheme-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.scheme-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
+}
+
+.micro-footer {
+  background: #002c57;
+  color: white;
+  padding: 20px;
+  margin-top: 40px;
+  text-align: center;
+}

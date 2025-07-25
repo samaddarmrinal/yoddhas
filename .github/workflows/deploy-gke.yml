@@ -1,0 +1,48 @@
+name: Deploy to GKE
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          export_environment_variables: true
+          workload_identity_provider: projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/YOUR_POOL/providers/YOUR_PROVIDER
+          service_account: infrastructure@hack-team-yoddhas.iam.gserviceaccount.com
+          project_id: hack-team-yoddhas
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Set up Docker Buildx
+        run: |
+          docker buildx create --use
+
+      - name: Authenticate Docker with GCP
+        run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE="europe-west1-docker.pkg.dev/hack-team-yoddhas/react-apps/yoddhas-app:latest"
+          docker buildx build --platform linux/amd64 -t $IMAGE . --push
+
+      - name: Get GKE Credentials
+        run: |
+          gcloud container clusters get-credentials yoddhas-gke-cluster --region europe-west1 --project hack-team-yoddhas
+
+      - name: Deploy to GKE
+        run: |
+          kubectl set image deployment/yoddhas-app yoddhas=$IMAGE

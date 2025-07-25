@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sarkar Se Ghar Tak - Voice Enabled Form</title>
+<style>
+body { font-family: sans-serif; padding: 20px; background: #f2f2f2; }
+input, select { padding: 10px; margin: 8px 0; width: 100%; }
+button { padding: 10px 20px; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h2>🧾 Voice Guided Registration</h2>
+
+<form id="voiceForm">
+<label>Name:</label>
+<input type="text" id="name">
+
+<label>Aadhaar Number:</label>
+<input type="text" id="aadhaar">
+
+<label>Mobile Number:</label>
+<input type="text" id="mobile">
+
+<label>Occupation:</label>
+<input type="text" id="occupation">
+
+<label>Family Income (monthly):</label>
+<input type="text" id="income">
+
+<label>Disability (Yes/No):</label>
+<input type="text" id="disability">
+
+<label>Gender:</label>
+<input type="text" id="gender">
+
+<label>Marital Status:</label>
+<input type="text" id="marital">
+
+<label>No. of Children:</label>
+<input type="text" id="kids">
+
+<label>Children Gender(s):</label>
+<input type="text" id="kidsGender">
+
+<button type="button" onclick="startVoiceForm()">🎤 Start Voice Input</button>
+</form>
+
+<script>
+const fields = [
+{ id: 'name', prompt: 'Please say your full name' },
+{ id: 'aadhaar', prompt: 'Please say your twelve digit Aadhaar number' },
+{ id: 'mobile', prompt: 'Say your ten digit mobile number' },
+{ id: 'occupation', prompt: 'What is your occupation?' },
+{ id: 'income', prompt: 'Say your family’s monthly income in rupees' },
+{ id: 'disability', prompt: 'Do you have any disability? Say yes or no' },
+{ id: 'gender', prompt: 'Are you male, female or other?' },
+{ id: 'marital', prompt: 'Say your marital status: single, married, divorced, or widowed' },
+{ id: 'kids', prompt: 'How many children do you have?' },
+{ id: 'kidsGender', prompt: 'Say the gender of your children' }
+];
+
+const synth = window.speechSynthesis;
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.lang = 'en-IN';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+async function startVoiceForm() {
+for (const field of fields) {
+await speak(field.prompt);
+const result = await listen();
+document.getElementById(field.id).value = result;
+}
+alert('✅ Form completed!');
+}
+
+function speak(text) {
+return new Promise((resolve) => {
+const utter = new SpeechSynthesisUtterance(text);
+utter.lang = 'en-IN';
+utter.onend = resolve;
+synth.speak(utter);
+});
+}
+
+function listen() {
+return new Promise((resolve, reject) => {
+recognition.start();
+recognition.onresult = (event) => {
+const result = event.results[0][0].transcript;
+recognition.stop();
+resolve(result);
+};
+recognition.onerror = (event) => {
+recognition.stop();
+reject(event.error);
+};
+});
+}
+</script>
+</body>
+</html>
+Displaying 20250724_105204.jpg.
